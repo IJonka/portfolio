@@ -18,9 +18,7 @@
         }
       },
       "required": [
-        "title",
-        "image",
-        "link"
+        "image"
       ],
       "additionalProperties": false
     }

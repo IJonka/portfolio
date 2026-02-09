@@ -1,14 +1,30 @@
+# .pagescms.yml в корне твоего проекта
 content:
-  - label: "Hero Slides"
+  - label: "Слайды в Hero"
     folder: "src/content/hero-slides"
     type: "collection"
     format: "md"
+    # Эта часть заменяет схему из config.ts для админки
     fields:
       - label: "Изображение"
         name: "image"
         widget: "image"
-        # Путь, куда будут сохраняться новые картинки
+        # Указываем, куда сохранять новые картинки, чтобы Astro их видел
         upload_dir: "public/assets/images"
-      - label: "Alt текст"
+      - label: "Альтернативный текст"
         name: "alt"
         widget: "string"
+        default: "Описание изображения"
+
+  - label: "Проекты"
+    folder: "src/content/projects" # Если у тебя есть папка с проектами
+    type: "collection"
+    format: "md"
+    fields:
+      - label: "Название"
+        name: "title"
+        widget: "string"
+      - label: "Обложка"
+        name: "cover"
+        widget: "image"
+        upload_dir: "public/assets/images/projects"

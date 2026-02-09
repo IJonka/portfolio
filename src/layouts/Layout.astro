@@ -1,0 +1,44 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/style.css';
+
+interface Props {
+  title: string;
+  currentPage?: 'index' | 'projects' | 'contacts';
+}
+
+const { title, currentPage = 'index' } = Astro.props;
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Header currentPage={currentPage} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      const burger = document.querySelector('.burger');
+      const body = document.body;
+      const mobileOverlay = document.querySelector('.mobile-overlay');
+      const toggleMenu = () => {
+        const isOpen = body.classList.toggle('menu-open');
+        body.style.overflow = isOpen ? 'hidden' : '';
+        if (burger) burger.setAttribute('aria-expanded', isOpen);
+      };
+      burger?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMenu();
+      });
+      mobileOverlay?.addEventListener('click', (e) => {
+        if (e.target === mobileOverlay) toggleMenu();
+      });
+    </script>
+  </body>
+</html>

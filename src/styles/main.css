@@ -1,0 +1,119 @@
+/* Используем один класс для самой плашки */
+.hero__container {
+  position: relative;
+  width: 100%;
+  padding: 80px 40px;
+  text-align: center;
+  background: linear-gradient(180deg, #fbfbfb 0%, #f7f7f7 100%);
+  border-radius: 40px;
+  overflow: hidden;
+  margin-top: 80px;
+  margin-inline: 0;
+  box-sizing: border-box;
+}
+
+.hero__title {
+  max-width: 800px;
+  margin: 0 auto 26px;
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #000;
+}
+
+.hero__subtitle {
+  max-width: 570px;
+  margin: 0 auto 26px;
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.tag-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tag {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.tag--uiux {
+  background: #e3e7ff;
+  color: #0024ff;
+}
+.tag--product {
+  background: #ffe1c6;
+  color: #ff7801;
+}
+.tag--mobile {
+  background: #6155f5;
+  color: #fff;
+}
+.tag--saas {
+  background: #00c3d0;
+  color: #fff;
+}
+.tag--branding {
+  background: #ff383c;
+  color: #fff;
+}
+
+.hero__visual {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero__img {
+  position: absolute;
+  max-width: 260px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.hero__img--1 {
+  left: -20px;
+  top: 15%;
+}
+
+.hero__img--2 {
+  right: -20px;
+  top: 15%;
+}
+
+@media (max-width: 768px) {
+  .hero__container {
+    padding: 60px 20px;
+    margin-block: 40px;
+    margin-inline: 0;
+    border-radius: 24px;
+  }
+
+  .hero__img {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__container {
+    padding: 40px 16px;
+  }
+
+  .hero__title {
+    max-width: 100%;
+    font-size: 32px;
+  }
+}

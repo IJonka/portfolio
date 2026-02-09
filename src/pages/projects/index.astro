@@ -1,0 +1,70 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL;
+---
+<Layout title="Проекты" currentPage="projects">
+  <section class="projects-page" id="projects-page">
+    <div class="container">
+      <div class="projects__header">
+        <h3>↳ Проекты</h3>
+        <p>
+          В моем портфолио представлены кейсы по UI/UX, продуктовому и
+          мобильному дизайну, а также брендингу. Я специализируюсь на
+          создании интуитивно понятных интерфейсов и визуальных стратегий,
+          которые помогают бизнесу расти, а пользователям — решать их задачи
+        </p>
+      </div>
+    </div>
+  </section>
+  <section
+    class="projects projects-in__page"
+    id="projects"
+    aria-labelledby="projects-title"
+  >
+    <div class="container">
+      <ul class="projects__grid">
+        <li class="projects__item">
+          <a href={`${base}projects/tvcom/`} class="project-card">
+            <article class="project-card__content">
+              <ul class="project-card__tags">
+                <li class="tag tag--product">Product Design</li>
+                <li class="tag tag--uiux">UI/UX</li>
+              </ul>
+            </article>
+            <h3 class="project-card__title">TVCOM</h3>
+          </a>
+        </li>
+
+        <li class="projects__item">
+          <a href="#" class="project-card">
+            <article
+              class="project-card__content"
+              style="background: #eef7ff"
+            >
+              <ul class="project-card__tags">
+                <li class="tag tag--product">Product Design</li>
+                <li class="tag tag--saas">SaaS</li>
+              </ul>
+            </article>
+            <h3 class="project-card__title">Lume Eco-System</h3>
+          </a>
+        </li>
+
+        <li class="projects__item">
+          <a href="#" class="project-card">
+            <article
+              class="project-card__content"
+              style="background: #fff4f4"
+            >
+              <ul class="project-card__tags">
+                <li class="tag tag--mobile">Mobile Design</li>
+                <li class="tag tag--uiux">UI/UX</li>
+              </ul>
+            </article>
+            <h3 class="project-card__title">Comnet App</h3>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</Layout>

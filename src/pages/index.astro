@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import { getCollection } from 'astro:content';
+const slides = await getCollection('hero-slides');
+const { base = '/'} = Astro.props;
+---
+<Layout title="Javohir Ibragimov | UI/UX Designer" currentPage="index">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+      <div class="hero__container">
+        <div class="hero__content">
+          <h1 class="hero__title" id="hero-title">
+            UI/UX дизайн для сложных цифровых продуктов
+          </h1>
+          <p class="hero__subtitle">
+            Веб-сайты, мобильные приложения и интерфейсы с фокусом на
+            пользователя и результат
+          </p>
+
+          <ul class="tag-list">
+            <li class="tag tag--uiux">UI/UX</li>
+            <li class="tag tag--product">Product Design</li>
+            <li class="tag tag--mobile">Mobile Design</li>
+            <li class="tag tag--saas">SaaS</li>
+            <li class="tag tag--branding">Branding</li>
+          </ul>
+        </div>
+
+        <div class="hero__visual" aria-hidden="true">
+          {slides.map((slide, index) => (
+            <img
+              src={`${base}${slide.data.image.replace(/^\//, '')}`} 
+              alt={slide.data.alt || ""}
+              class={`hero__img hero__img--${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects" id="projects" aria-labelledby="projects-title">
+    <div class="container">
+      <header class="projects__header">
+        <h2 class="projects__title" id="projects-title">Проекты</h2>
+        <a href={`${base}projects/`} class="projects__all-link">
+          Все проекты
+          <img
+            src={`${base}assets/icons/arrowcircleright.svg`}
+            alt=""
+            aria-hidden="true"
+          />
+        </a>
+      </header>
+
+      <ul class="projects__grid">
+        <li class="projects__item">
+          <a href={`${base}projects/tvcom/`} class="project-card">
+            <article class="project-card__content">
+              <ul class="project-card__tags">
+                <li class="tag tag--product">Product Design</li>
+                <li class="tag tag--uiux">UI/UX</li>
+              </ul>
+            </article>
+            <h3 class="project-card__title">TVCOM</h3>
+          </a>
+        </li>
+
+        <li class="projects__item">
+          <a href="#" class="project-card">
+            <article
+              class="project-card__content"
+              style="background: #eef7ff"
+            >
+              <ul class="project-card__tags">
+                <li class="tag tag--product">Product Design</li>
+                <li class="tag tag--saas">SaaS</li>
+              </ul>
+            </article>
+            <h3 class="project-card__title">Lume Eco-System</h3>
+          </a>
+        </li>
+
+        <li class="projects__item">
+          <a href="#" class="project-card">
+            <article
+              class="project-card__content"
+              style="background: #fff4f4"
+            >
+              <ul class="project-card__tags">
+                <li class="tag tag--mobile">Mobile Design</li>
+                <li class="tag tag--uiux">UI/UX</li>
+              </ul>
+            </article>
+            <h3 class="project-card__title">Comnet App</h3>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="about" id="about" aria-labelledby="about-title">
+    <div class="container">
+      <div class="about__layout">
+        <h2 class="about__title" id="about-title">↳ Обо мне</h2>
+
+        <div class="about__content">
+          <article class="about__block">
+            <h3 class="about__label">Мой путь</h3>
+            <p class="about__text">
+              Мой путь в дизайн начался с интереса к визуалу и желанием
+              постоянно что-то улучшать. Работая в Ташкенте, я пришёл к
+              минималистичному подходу, где важны логика, структура и
+              внимание к деталям. Для меня дизайн — это процесс осмысленных
+              улучшений, а не просто создание красивых экранов.
+            </p>
+          </article>
+
+          <article class="about__block">
+            <h3 class="about__label">Чем занимаюсь?</h3>
+            <p class="about__text">
+              Работаю с продуктовым и UI/UX-дизайном, создавая мобильные и
+              веб-интерфейсы для SaaS-продуктов и цифровых брендов. Мне
+              важно, чтобы дизайн был логичным, аккуратным и помогал
+              улучшать существующие решения, а не усложнять их.
+            </p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

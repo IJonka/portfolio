@@ -1,0 +1,53 @@
+@import "./fonts.css";
+@import "./header.css";
+@import "./main.css";
+@import "./projects.css";
+@import "./about.css";
+@import "./footer.css";
+@import "./projects_page.css";
+@import "./project.css";
+@import "./contacts.css";
+
+:root {
+  --primary-black: #000;
+  --secondary-gray: #666;
+  --bg-white: #fff;
+  --transition: 0.3s ease;
+  --gap: 40px;
+}
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: "TT Hoves", system-ui, sans-serif;
+  background-color: var(--bg-white);
+  color: var(--primary-black);
+  overflow-x: hidden;
+}
+
+input,
+select,
+button {
+  font-family: "TT Hoves", system-ui, sans-serif;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding-inline: var(--gap);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --gap: 24px;
+  }
+}

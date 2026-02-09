@@ -44,7 +44,7 @@
 
 Если вам понравились мои работы или вы хотите обсудить проект — пишите!
 
-- **Telegram:** [@javaibr]
+- **Telegram:** @javaibr
 - **Email:** `javohiribr@gmail.com`
 
 ---

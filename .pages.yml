@@ -20,3 +20,103 @@ content:
         label: Link
         type: string
         required: false
+  - name: projects
+    label: Projects
+    type: collection
+    path: src/content/projects
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: image
+        label: Preview Image
+        type: image
+      - name: link
+        label: Link
+        type: string
+        required: false
+      - name: tags
+        label: Tags
+        type: list
+        required: false
+      - name: order
+        label: Order
+        type: number
+        required: false
+      - name: metaLabel
+        label: Meta Label
+        type: string
+        required: false
+      - name: year
+        label: Year
+        type: string
+        required: false
+      - name: heroImage
+        label: Hero Image
+        type: image
+        required: false
+      - name: heroAlt
+        label: Hero Image Alt
+        type: string
+        required: false
+      - name: intro
+        label: Intro Text
+        type: text
+        required: false
+      - name: siteUrl
+        label: Site URL
+        type: string
+        required: false
+      - name: figmaUrl
+        label: Figma URL
+        type: string
+        required: false
+      - name: problemTitle
+        label: Problem Title
+        type: string
+        required: false
+      - name: problemText
+        label: Problem Text
+        type: text
+        required: false
+      - name: solutionTitle
+        label: Solution Title
+        type: string
+        required: false
+      - name: solutionText
+        label: Solution Text
+        type: text
+        required: false
+      - name: galleryTop1
+        label: Gallery Top Image 1
+        type: image
+        required: false
+      - name: galleryTop2
+        label: Gallery Top Image 2
+        type: image
+        required: false
+      - name: galleryGrid1
+        label: Gallery Grid Image 1
+        type: image
+        required: false
+      - name: galleryGrid2
+        label: Gallery Grid Image 2
+        type: image
+        required: false
+      - name: galleryBottom
+        label: Gallery Bottom Image
+        type: image
+        required: false
+      - name: resultImage
+        label: Result Image
+        type: image
+        required: false
+      - name: resultTitle
+        label: Result Title
+        type: string
+        required: false
+      - name: resultText
+        label: Result Text
+        type: text
+        required: false

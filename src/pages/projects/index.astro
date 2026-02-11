@@ -1,6 +1,23 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
 const base = import.meta.env.BASE_URL;
+const projects = (await getCollection('projects')).sort(
+  (
+    a: CollectionEntry<'projects'>,
+    b: CollectionEntry<'projects'>
+  ) => (a.data.order ?? 0) - (b.data.order ?? 0)
+);
+
+const tagClassMap: Record<string, string> = {
+  'UI/UX': 'tag--uiux',
+  'Product Design': 'tag--product',
+  'Mobile Design': 'tag--mobile',
+  SaaS: 'tag--saas',
+  Branding: 'tag--branding',
+};
+
+const getTagClass = (tag: string) => tagClassMap[tag] ?? '';
 ---
 <Layout title="Проекты" currentPage="projects">
   <section class="projects-page" id="projects-page">
@@ -23,47 +40,28 @@ const base = import.meta.env.BASE_URL;
   >
     <div class="container">
       <ul class="projects__grid">
-        <li class="projects__item">
-          <a href={`${base}projects/tvcom/`} class="project-card">
-            <article class="project-card__content">
-              <ul class="project-card__tags">
-                <li class="tag tag--product">Product Design</li>
-                <li class="tag tag--uiux">UI/UX</li>
-              </ul>
-            </article>
-            <h3 class="project-card__title">TVCOM</h3>
-          </a>
-        </li>
-
-        <li class="projects__item">
-          <a href="#" class="project-card">
-            <article
-              class="project-card__content"
-              style="background: #eef7ff"
+        {projects.map((project: CollectionEntry<'projects'>) => (
+          <li class="projects__item">
+            <a
+              href={project.data.link ?? `${base}projects/${project.slug}/`}
+              class="project-card"
             >
-              <ul class="project-card__tags">
-                <li class="tag tag--product">Product Design</li>
-                <li class="tag tag--saas">SaaS</li>
-              </ul>
-            </article>
-            <h3 class="project-card__title">Lume Eco-System</h3>
-          </a>
-        </li>
-
-        <li class="projects__item">
-          <a href="#" class="project-card">
-            <article
-              class="project-card__content"
-              style="background: #fff4f4"
-            >
-              <ul class="project-card__tags">
-                <li class="tag tag--mobile">Mobile Design</li>
-                <li class="tag tag--uiux">UI/UX</li>
-              </ul>
-            </article>
-            <h3 class="project-card__title">Comnet App</h3>
-          </a>
-        </li>
+              <article
+                class="project-card__content"
+                style={`background-image: url(${project.data.image});`}
+              >
+                {project.data.tags?.length ? (
+                  <ul class="project-card__tags">
+                    {project.data.tags.map((tag: string) => (
+                      <li class={`tag ${getTagClass(tag)}`}>{tag}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </article>
+              <h3 class="project-card__title">{project.data.title}</h3>
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   </section>

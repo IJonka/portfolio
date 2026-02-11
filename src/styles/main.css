@@ -79,19 +79,19 @@
 
 .hero__img {
   position: absolute;
-  max-width: 260px;
+  max-width: 280px;
   height: auto;
   transition: transform 0.3s ease;
 }
 
 .hero__img--1 {
   left: -20px;
-  top: 15%;
+  top: 20%;
 }
 
 .hero__img--2 {
   right: -20px;
-  top: 15%;
+  top: 20%;
 }
 
 @media (max-width: 768px) {

@@ -1,0 +1,258 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const base = import.meta.env.BASE_URL;
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project: CollectionEntry<'projects'>) => ({
+    params: { slug: project.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const projects = await getCollection('projects');
+const project = projects.find((entry: CollectionEntry<'projects'>) => entry.slug === slug);
+
+if (!project) {
+  throw new Error(`Project not found: ${slug}`);
+}
+
+const otherProjects = projects
+  .filter((entry: CollectionEntry<'projects'>) => entry.slug !== project.slug)
+  .sort(
+    (
+      a: CollectionEntry<'projects'>,
+      b: CollectionEntry<'projects'>
+    ) => (a.data.order ?? 0) - (b.data.order ?? 0)
+  )
+  .slice(0, 3);
+
+const tagClassMap: Record<string, string> = {
+  'UI/UX': 'tag--uiux',
+  'Product Design': 'tag--product',
+  'Mobile Design': 'tag--mobile',
+  SaaS: 'tag--saas',
+  Branding: 'tag--branding',
+};
+
+const getTagClass = (tag: string) => tagClassMap[tag] ?? '';
+---
+<Layout title={project.data.title} currentPage="projects">
+  <nav>
+    <div class="container">
+      <a class="back-nav" href="javascript:history.back()">
+        <img
+          class="back-button"
+          src={`${base}assets/icons/arrowLeft.svg`}
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="back-text">Вернуться назад</span>
+      </a>
+    </div>
+  </nav>
+
+  <header class="project-header">
+    <div class="container">
+      {project.data.tags?.length ? (
+        <ul class="project-card__tags">
+          {project.data.tags.map((tag: string) => (
+            <li class={`tag ${getTagClass(tag)}`}>{tag}</li>
+          ))}
+        </ul>
+      ) : null}
+
+      <div class="project-header__content">
+        <h1 class="project-header__title">{project.data.title}</h1>
+
+        {(project.data.metaLabel || project.data.year) ? (
+          <div class="project-header__meta">
+            {project.data.metaLabel ? <p>{project.data.metaLabel}</p> : null}
+            {project.data.metaLabel && project.data.year ? (
+              <span class="separator"></span>
+            ) : null}
+            {project.data.year ? <p>{project.data.year}</p> : null}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  </header>
+
+  {project.data.heroImage ? (
+    <section class="project-gallery">
+      <div class="container">
+        <figure class="main-project-gallery__item">
+          <picture class="image">
+            <img
+              src={project.data.heroImage}
+              alt={project.data.heroAlt ?? project.data.title}
+            />
+          </picture>
+        </figure>
+      </div>
+    </section>
+  ) : null}
+
+  {(project.data.intro || project.data.problemText || project.data.solutionText) ? (
+    <section class="project-details">
+      <div class="container">
+        <div class="project-details__grid">
+          <div class="project-details__intro">
+            {project.data.intro ? (
+              <p class="text-large">{project.data.intro}</p>
+            ) : null}
+
+            {(project.data.siteUrl || project.data.figmaUrl) ? (
+              <div class="project-details__buttons">
+                {project.data.siteUrl ? (
+                  <a href={project.data.siteUrl} class="projects__all-link">
+                    Посетить сайт
+                    <img
+                      src={`${base}assets/icons/arrowcircleright.svg`}
+                      alt=""
+                      aria-hidden="true"
+                    />
+                  </a>
+                ) : null}
+                {project.data.figmaUrl ? (
+                  <a
+                    href={project.data.figmaUrl}
+                    class="btn-figma"
+                    title="Смотреть в Figma"
+                  >
+                    <img src={`${base}assets/icons/figma.svg`} alt="Figma" />
+                  </a>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
+
+          {(project.data.problemText || project.data.solutionText) ? (
+            <div class="project-details__tasks">
+              {project.data.problemText ? (
+                <article class="task-item">
+                  <h3 class="task-item__title">
+                    {project.data.problemTitle ?? 'Проблема'}
+                  </h3>
+                  <p class="task-item__text">{project.data.problemText}</p>
+                </article>
+              ) : null}
+              {project.data.solutionText ? (
+                <article class="task-item">
+                  <h3 class="task-item__title">
+                    {project.data.solutionTitle ?? 'Решение'}
+                  </h3>
+                  <p class="task-item__text">{project.data.solutionText}</p>
+                </article>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+      </div>
+    </section>
+  ) : null}
+
+  {(project.data.galleryTop1 ||
+    project.data.galleryTop2 ||
+    project.data.galleryGrid1 ||
+    project.data.galleryGrid2 ||
+    project.data.galleryBottom ||
+    project.data.resultImage ||
+    project.data.resultText) ? (
+    <section class="project-gallery">
+      <div class="container">
+        {project.data.galleryTop1 ? (
+          <figure class="project-gallery__item">
+            <img src={project.data.galleryTop1} alt="" loading="lazy" />
+          </figure>
+        ) : null}
+
+        {project.data.galleryTop2 ? (
+          <figure class="project-gallery__item">
+            <img src={project.data.galleryTop2} alt="" loading="lazy" />
+          </figure>
+        ) : null}
+
+        {(project.data.galleryGrid1 || project.data.galleryGrid2) ? (
+          <div class="screen-grid">
+            {project.data.galleryGrid1 ? (
+              <div class="project-gallery__grid">
+                <figure class="project-gallery__item">
+                  <img src={project.data.galleryGrid1} alt="" loading="lazy" />
+                </figure>
+              </div>
+            ) : null}
+            {project.data.galleryGrid2 ? (
+              <div class="project-gallery__grid">
+                <figure class="project-gallery__item">
+                  <img src={project.data.galleryGrid2} alt="" loading="lazy" />
+                </figure>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+
+        {project.data.galleryBottom ? (
+          <figure class="project-gallery__item">
+            <img src={project.data.galleryBottom} alt="" loading="lazy" />
+          </figure>
+        ) : null}
+
+        {(project.data.resultImage || project.data.resultText) ? (
+          <section class="last-section">
+            <div class="last-section__grid">
+              {project.data.resultImage ? (
+                <figure class="project-gallery__item">
+                  <img src={project.data.resultImage} alt="" loading="lazy" />
+                </figure>
+              ) : null}
+
+              {project.data.resultText ? (
+                <div class="project-result__content">
+                  <h3 class="task-item__title">
+                    {project.data.resultTitle ?? 'Результат'}
+                  </h3>
+                  <p class="project-result__text">{project.data.resultText}</p>
+                </div>
+              ) : null}
+            </div>
+          </section>
+        ) : null}
+      </div>
+    </section>
+  ) : null}
+
+  {otherProjects.length ? (
+    <section class="projects-more" id="projects">
+      <div class="container">
+        <h2 class="section-title">Также можете посмотреть</h2>
+        <ul class="projects__grid">
+          {otherProjects.map((entry: CollectionEntry<'projects'>) => (
+            <li class="projects__item">
+              <a
+                href={entry.data.link ?? `${base}projects/${entry.slug}/`}
+                class="project-card"
+              >
+                <article
+                  class="project-card__content"
+                  style={`background-image: url(${entry.data.image});`}
+                >
+                  {entry.data.tags?.length ? (
+                    <ul class="project-card__tags">
+                      {entry.data.tags.map((tag: string) => (
+                        <li class={`tag ${getTagClass(tag)}`}>{tag}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </article>
+                <h3 class="project-card__title">{entry.data.title}</h3>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ) : null}
+</Layout>

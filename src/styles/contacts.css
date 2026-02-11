@@ -111,6 +111,13 @@
   gap: 38px;
 }
 
+.contacts-direct .tag {
+  font-size: 16px;
+  align-self: flex-start;
+  display: inline-flex;
+  padding: 10px 12px;
+}
+
 .contacts-direct__link {
   text-decoration: none;
   color: var(--primary-black);

@@ -1,5 +1,5 @@
 ---
 title: TVCOM
-image: /assets/images/4642727.webp
+image: /assets/images/UI.avif
 link: /projects/project1
 ---

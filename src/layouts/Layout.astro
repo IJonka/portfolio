@@ -30,7 +30,7 @@ const { title, currentPage = 'index' } = Astro.props;
       const toggleMenu = () => {
         const isOpen = body.classList.toggle('menu-open');
         body.style.overflow = isOpen ? 'hidden' : '';
-        if (burger) burger.setAttribute('aria-expanded', isOpen);
+        if (burger) burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       };
       burger?.addEventListener('click', (e) => {
         e.stopPropagation();

@@ -28,8 +28,7 @@ const base = import.meta.env.BASE_URL;
                 />
               </div>
               <div class="contact-form__field">
-                <label for="phone" class="visually-hidden">Номер телефона</label>
-                <input
+                <label for="phone" class="visually-hidden">Номер телефона</label>                <input
                   type="tel"
                   id="phone"
                   name="phone"
@@ -95,3 +94,40 @@ const base = import.meta.env.BASE_URL;
     </div>
   </div>
 </Layout>
+
+<script>
+  const phoneInput = document.getElementById('phone') as HTMLInputElement | null;
+
+  if (phoneInput) {
+    const prefix = '+998';
+
+    phoneInput.addEventListener('input', () => {
+      if (!phoneInput.value) {
+        return;
+      }
+
+      if (!phoneInput.value.startsWith(prefix)) {
+        const digits = phoneInput.value.replace(/\D/g, '');
+        const localDigits = digits.startsWith('998') ? digits.slice(3) : digits;
+        phoneInput.value = prefix + localDigits;
+      }
+    });
+
+    phoneInput.addEventListener('focus', () => {
+      if (!phoneInput.value) {
+        phoneInput.value = prefix;
+      }
+    });
+
+    phoneInput.addEventListener('keydown', (event) => {
+      if (
+        (event.key === 'Backspace' || event.key === 'Delete') &&
+        (phoneInput.selectionStart ?? 0) <= prefix.length &&
+        phoneInput.value.startsWith(prefix)
+      ) {
+        event.preventDefault();
+      }
+    });
+  }
+</script>
+

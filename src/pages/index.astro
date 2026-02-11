@@ -1,10 +1,8 @@
 ---
-import { any } from 'astro:schema';
 import Layout from '../layouts/Layout.astro';
-
-import { getCollection } from 'astro:content';
-const slides = await getCollection('hero-slides');
-const { base = '/'} = Astro.props;
+import { getCollection, type CollectionEntry } from 'astro:content';
+const base = import.meta.env.BASE_URL;
+const heroSlides = await getCollection('hero-slides');
 ---
 <Layout title="Javohir Ibragimov | UI/UX Designer" currentPage="index">
   <section class="hero" aria-labelledby="hero-title">
@@ -29,11 +27,12 @@ const { base = '/'} = Astro.props;
         </div>
 
         <div class="hero__visual" aria-hidden="true">
-          {slides.map((slide: any, index: number) => (
+          {heroSlides.map((slide: CollectionEntry<'hero-slides'>, index: number) => (
             <img
-              src={`${base}${slide.data.image.replace(/^\//, '')}`} 
-              alt={slide.data.alt || ""}
+              src={slide.data.image}
+              alt={slide.data.title ?? ''}
               class={`hero__img hero__img--${index + 1}`}
+              loading="lazy"
             />
           ))}
         </div>

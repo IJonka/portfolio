@@ -88,6 +88,11 @@
     padding-block: 60px;
   }
 
+  .projects__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .projects__title {
     font-size: 32px;
   }

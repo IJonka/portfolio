@@ -1,16 +1,22 @@
+media:
+  input: public/assets/images
+  output: /assets/images
+
 content:
-  - label: "Hero Slides"
-    folder: "src/content/hero-slides"
-    type: "collection"
-    path: "{slug}" # Добавь эту строку, она важна для некоторых версий CMS
-    extension: "md"
-    format: "frontmatter-md" # Уточняем формат
+  - name: hero-slides
+    label: Hero Slides
+    type: collection
+    path: src/content/hero-slides
+    format: yaml-frontmatter
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - {
-          label: "Image",
-          name: "image",
-          widget: "image",
-          upload_dir: "public/assets/images",
-        }
-      - { label: "Link", name: "link", widget: "string" }
+      - name: title
+        label: Title
+        type: string
+        required: false
+      - name: image
+        label: Image
+        type: image
+      - name: link
+        label: Link
+        type: string
+        required: false

@@ -21,12 +21,18 @@ if (!project) {
 
 const otherProjects = projects
   .filter((entry: CollectionEntry<'projects'>) => entry.slug !== project.slug)
+  .map((entry: CollectionEntry<'projects'>, index: number) => ({ entry, index }))
   .sort(
     (
-      a: CollectionEntry<'projects'>,
-      b: CollectionEntry<'projects'>
-    ) => (a.data.order ?? 0) - (b.data.order ?? 0)
+      a: { entry: CollectionEntry<'projects'>; index: number },
+      b: { entry: CollectionEntry<'projects'>; index: number }
+    ) => {
+      const aOrder = a.entry.data.order ?? a.index;
+      const bOrder = b.entry.data.order ?? b.index;
+      return aOrder - bOrder;
+    }
   )
+  .map(({ entry }: { entry: CollectionEntry<'projects'> }) => entry)
   .slice(0, 3);
 
 const tagClassMap: Record<string, string> = {

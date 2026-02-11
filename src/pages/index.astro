@@ -3,12 +3,19 @@ import Layout from '../layouts/Layout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 const base = import.meta.env.BASE_URL;
 const heroSlides = await getCollection('hero-slides');
-const projects = (await getCollection('projects')).sort(
-  (
-    a: CollectionEntry<'projects'>,
-    b: CollectionEntry<'projects'>
-  ) => (a.data.order ?? 0) - (b.data.order ?? 0)
-);
+const projects = (await getCollection('projects'))
+  .map((project: CollectionEntry<'projects'>, index: number) => ({ project, index }))
+  .sort(
+    (
+      a: { project: CollectionEntry<'projects'>; index: number },
+      b: { project: CollectionEntry<'projects'>; index: number }
+    ) => {
+      const aOrder = a.project.data.order ?? a.index;
+      const bOrder = b.project.data.order ?? b.index;
+      return aOrder - bOrder;
+    }
+  )
+  .map(({ project }: { project: CollectionEntry<'projects'> }) => project);
 
 const tagClassMap: Record<string, string> = {
   'UI/UX': 'tag--uiux',

@@ -1,5 +1,5 @@
 ---
-title: "TVCOM"
-image: "/assets/images/project2.avif"
-link: "/projects/project1"
+title: TVCOM
+image: /assets/images/p50_converted.avif
+link: /projects/project1
 ---

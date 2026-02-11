@@ -1,4 +1,5 @@
 ---
+import { any } from 'astro:schema';
 import Layout from '../layouts/Layout.astro';
 
 import { getCollection } from 'astro:content';
@@ -28,7 +29,7 @@ const { base = '/'} = Astro.props;
         </div>
 
         <div class="hero__visual" aria-hidden="true">
-          {slides.map((slide, index) => (
+          {slides.map((slide: any, index: number) => (
             <img
               src={`${base}${slide.data.image.replace(/^\//, '')}`} 
               alt={slide.data.alt || ""}
